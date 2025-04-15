@@ -1,27 +1,22 @@
-# Lucrare de laborator: Aplicație PHP multi-container cu Docker Compose
-
-## Numele lucrării
-Aplicație PHP multi-container cu Docker Compose
+# Lucrare de laborator: Crearea unei aplicații multi-container
 
 ## Scopul lucrării
-Familiarizarea cu gestionarea unei aplicații multi-container folosind Docker Compose, prin configurarea și rularea unei aplicații PHP împreună cu server web (nginx) și baza de date (MariaDB/MySQL).
+Famialiarizarea cu gestiunea aplicației multi-container creat cu docker-compose.
 
 ## Sarcina
-Creați o aplicație PHP bazată pe trei containere:  
+Creați o aplicație PHP bazată pe trei containere folosind docker-compose:  
 - **nginx** (frontend)  
 - **php-fpm** (backend)  
 - **mariadb/mysql** (bază de date)  
 
-Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de mediu necesare pentru funcționarea aplicației.
-
 ## Descrierea efectuării lucrării
 
 1. **Pregătire**
-   - Se creează un nou repository numit `containers06` și se clonează pe computer.
+   - Se creează un nou repository numit `containers07` și se clonează pe computer.
    - Asigurați-vă că Docker este instalat și funcțional pe sistem.
 
 2. **Configurarea site-ului PHP**
-   - În directorul `containers06`, se creează directorul `mounts/site`.
+   - În directorul `containers07`, se creează directorul `mounts/site`.
    - Se copiază codul site-ului PHP (reprezentativ pentru disciplina PHP) în `mounts/site`.
 
 3. **Setarea fișierelor de configurare**
@@ -30,7 +25,7 @@ Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de
      # Ignore files and directories
      mounts/site/*
      ```
-   - Se creează fișierul `nginx/default.conf` în directorul `containers06/nginx` cu următorul conținut:
+   - Se creează fișierul `nginx/default.conf` în directorul `containers07/nginx` cu următorul conținut:
      ```nginx
      server {
          listen 80;
@@ -48,7 +43,7 @@ Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de
          }
      }
      ```
-   - Se creează fișierul `docker-compose.yml` în directorul `containers06` cu următorul conținut:
+   - Se creează fișierul `docker-compose.yml` în directorul `containers07` cu următorul conținut:
      ```yaml
      version: '3.9'
 
@@ -62,7 +57,6 @@ Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de
            - "80:80"
          networks:
            - internal
-         # Se va adăuga referința către app.env mai jos (exemplu):
          env_file:
            - app.env
 
@@ -99,14 +93,7 @@ Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de
      MYSQL_PASSWORD=secret
      ```
 
-4. **Adăugarea fișierului app.env**
-   - Pentru a seta variabila de mediu **APP_VERSION** pentru serviciile **backend** și **frontend**, se creează în rădăcina directorului `containers06` un fișier numit `app.env` cu conținutul:
-     ```
-     APP_VERSION=1.0.0
-     ```
-   - În fișierul `docker-compose.yml` se adaugă referința către `app.env` la secțiunile **frontend** și **backend** în blocul `env_file`, astfel cum se observă în exemplul de mai sus.
-
-5. **Pornire și testare**
+4. **Pornire și testare**
    - Se pornesc containerele rulând comanda:
      ```
      docker-compose up -d
@@ -130,7 +117,7 @@ Folosind Docker Compose, se vor configura volumele, rețelele și variabilele de
 
 4. **Cum se adaugă fișierul app.env pentru variabila de mediu APP_VERSION?**  
    Pentru a adăuga fișierul `app.env`, se realizează următorii pași:
-   - Se creează un fișier nou în directorul `containers06` numit `app.env`.
+   - Se creează un fișier nou în directorul `containers07` numit `app.env`.
    - În acest fișier se adaugă linia:  
      ```
      APP_VERSION=1.0.0
